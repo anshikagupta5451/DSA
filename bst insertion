@@ -1,0 +1,66 @@
+public class bst {
+    class Node
+    {
+        int key;
+         Node left;
+         Node right;
+         public Node(int item) {
+             this.key = item;
+             this.left = this.right = null;
+         }
+    }
+    Node root;
+    bst()
+    {
+        root=null;
+    }
+    bst(int value)
+    {
+        root=new Node(value);
+    }
+    void insert(int key)
+    {
+        root=insertrec(root,key);
+    }
+    Node insertrec(Node root, int key)
+    {
+        if(root==null)
+        {
+            root=new Node(key);
+            return root;
+        }
+        if(key<root.key)
+        {
+            root.left=insertrec(root.left,key);
+        }
+        else if(key>root.key)
+        {
+            root.right=insertrec(root.right,key);
+        }
+        return root;
+
+    }
+    void inorder()
+    {
+        inorderec(root);
+    }
+    void inorderec(Node root) {
+        if (root != null) {
+              inorderec(root.left);
+            System.out.println(root.key);
+            inorderec(root.right);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        bst tree=new bst();
+        tree.insert(10);
+        tree.insert(50);
+        tree.insert(1);
+        tree.insert(90);tree.insert(40);
+tree.inorder();
+
+
+    }
+}
