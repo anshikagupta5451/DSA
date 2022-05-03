@@ -1,0 +1,114 @@
+public class avl {
+    Node root;
+     class Node {
+         int height, data;
+         Node left, right;
+
+
+         Node(int value) {
+      data=value;
+      height=1;
+
+         }
+     }
+    int height(Node N)
+    {
+        if(N==null)
+            return 0;
+        else
+            return N.height;
+    }
+    int getbalfactor(Node n) {
+        if (n == null)
+            return 0;
+        else
+            return height(n.left)-height(n.right);
+    }
+    int max(int a,int b)
+    {
+        if(a>b)
+            return a;
+        else
+            return b;
+    }
+    Node leftrot(Node a)
+    {
+        Node b=a.left;
+        Node c=b.right;
+        b.left=a;
+        a.right=c;
+        a.height=max(height(a.left),height(a.right))+1;
+        b.height=max(height(b.left),height(b.right))+1;
+        return b;
+    }
+    Node rightrot(Node b)
+    {
+        Node a=b.left;
+        Node c=a.right;
+        a.right=b;
+        b.left=c;
+        b.height=max(height(b.left),height(b.right))+1;
+        a.height=max(height(a.left),height(a.right))+1;
+
+        return a;
+    }
+
+     Node insertNode(Node node,int value)
+     {
+         if(node==null)
+             return new Node(value);
+         if(value<node.data)
+         {
+             node.left=insertNode(node.left,value);
+         }
+         else if(value>node.data)
+             node.right=insertNode(node.right,value);
+         else
+             return node;
+
+         node.height=max(height(node.left),height(node.right))+1;
+         int balancef=getbalfactor(node);
+         if(balancef>1)
+
+         {
+             if(value<node.left.data)
+             return rightrot(node);
+
+         else if(value>node.left.data)
+             node.left=leftrot(node.left);
+             return rightrot(node);
+         }
+         if(balancef<-1)
+         {
+             if(value>node.right.data)
+             return leftrot(node);
+
+         else if(value>node.right.data)
+             node.left=rightrot(node.left);
+             return leftrot( node);
+         }
+
+return node;
+     }
+     void inorder(Node node)
+         {
+             if(node!=null)
+             {
+                 inorder(node.left);
+                 System.out.println(node.data);
+                 inorder(node.right);
+
+             }
+         }
+    public static void main(String[] args) {
+        avl a = new avl();
+        a.root = a.insertNode(a.root, 33);
+        a.root = a.insertNode(a.root, 30);
+        a.root = a.insertNode(a.root, 37);
+        a.root = a.insertNode(a.root, 3);
+        a.root = a.insertNode(a.root, 43);
+        a.root = a.insertNode(a.root, 36);
+a.inorder(a.root );
+    }
+
+}
