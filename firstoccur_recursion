@@ -1,0 +1,17 @@
+public class Main
+{
+    public static int  find(int []arr,int index,int val)
+    {
+        if(index==0)
+        return arr[index];
+        if(arr[index]==val)
+        return index;
+        else
+        return find(arr,index-1,val);
+    }
+	public static void main(String[] args) {
+		int arr[]={34,2,67,8,5,34,6,67,3,6,67};
+		int i=67;
+		System.out.println(find(arr,arr.length-1,i));
+	}
+}
